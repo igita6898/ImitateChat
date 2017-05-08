@@ -2,6 +2,7 @@ package com.monch.network;
 
 import android.support.v4.util.ArrayMap;
 import android.support.v4.util.Pools;
+import android.text.TextUtils;
 
 import com.monch.network.executor.IExecutor;
 import com.monch.network.executor.OkHttpExecutor;
@@ -79,6 +80,9 @@ public final class ApiRequest {
     private IExecutor executor;                     // 执行器
 
     private ApiRequest(Builder builder) {
+        if (TextUtils.isEmpty(builder.url)) {
+            throw new IllegalArgumentException("ApiRequest url is null.");
+        }
         this.url = builder.url;
         this.type = builder.type;
         this.parameters = builder.parameters;
